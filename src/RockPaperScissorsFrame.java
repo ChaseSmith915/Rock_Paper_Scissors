@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.Random;
 
 public class RockPaperScissorsFrame extends JFrame{
     JFrame frame = new JFrame();
@@ -20,6 +21,9 @@ public class RockPaperScissorsFrame extends JFrame{
     ImageIcon rockImage;
     JButton scissorsButton;
     ImageIcon scissorsImage;
+
+    private String results;
+
 
     public RockPaperScissorsFrame()
     {
@@ -50,7 +54,7 @@ public class RockPaperScissorsFrame extends JFrame{
     private void createMiddlePanel()
     {
         midPnl = new JPanel();
-        displayResults = new JTextArea(10,60);
+        displayResults = new JTextArea(20,60);
         scroller = new JScrollPane(displayResults);
         midPnl.add(scroller);
     }
@@ -67,13 +71,57 @@ public class RockPaperScissorsFrame extends JFrame{
         quitButton = new JButton("Quit");
 
         quitButton.addActionListener((ActionEvent ae) -> System.exit(0));
-
+        rockButton.addActionListener(
+                (ActionEvent ae) -> {
+                    displayResults.append(gameRun(1) + "\n");
+                });
+        paperButton.addActionListener(
+                (ActionEvent ae) -> {
+                    displayResults.append(gameRun(2)+ "\n");
+                });
+        scissorsButton.addActionListener(
+                (ActionEvent ae) -> {
+                    displayResults.append(gameRun(3)+ "\n");
+                });
         botPnl.add(rockButton);
         botPnl.add(paperButton);
         botPnl.add(scissorsButton);
         botPnl.add(quitButton);
-
-
-
     }
-}
+
+    private String gameRun(int Choice) {
+        Random rand = new Random();
+        int computerChoice = rand.nextInt(1, 4);
+        //rock = 1, paper = 2, scissors = 3
+        String results = "";
+        if (computerChoice == Choice) {
+            results = "It's a tie!";
+        } else {
+            switch (Choice) {
+                case 1 -> {
+                    if (computerChoice == 2) {
+                        results = "Paper beats rock (Computer wins)";
+                    } else {
+                        results = "Rock beats scissors (Player wins)";
+                    }
+                }
+                case 2 -> {
+                    if (computerChoice == 1) {
+                        results = "Paper beats rock (Player Wins)";
+                    } else {
+                        results = "Scissors beats paper (Computer Wins)";
+                    }
+                }
+                case 3 -> {
+                    if (computerChoice == 1) {
+                        results = "Rock beats scissors (Computer Wins)";
+                    } else {
+                        results = "Scissors beats Rock (Player Wins)";
+                    }
+                }
+            }
+        }
+        return results;
+    }
+    }
+
