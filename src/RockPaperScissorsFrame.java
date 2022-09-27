@@ -3,7 +3,17 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.Random;
 
+/**
+ *
+ * @author Chase Smith
+ */
+
 public class RockPaperScissorsFrame extends JFrame{
+    /* This is a program that allows the user to play rock paper scissors
+    extends JFrame to create GUI
+    3 buttons to choosing option, 1 quit button
+    Computer always chooses randomly */
+
     JFrame frame = new JFrame();
     JPanel mainPnl;
     JPanel topPnl;
@@ -24,7 +34,10 @@ public class RockPaperScissorsFrame extends JFrame{
 
     private String results;
 
-
+    /**
+     * Generates the frame
+     * @return RockPaperScissorsFrame Object
+     */
     public RockPaperScissorsFrame()
     {
         mainPnl = new JPanel();
@@ -43,6 +56,10 @@ public class RockPaperScissorsFrame extends JFrame{
         setVisible(true);
     }
 
+    /**
+     * Generates the top panel for the frame.
+     * Has an image icon and a title
+     */
     private void createTopPanel()
     {
         topPnl = new JPanel();
@@ -51,6 +68,12 @@ public class RockPaperScissorsFrame extends JFrame{
 
         topPnl.add(titleLbl);
     }
+
+    /**
+     * Generates the center pannel for the frame
+     * Contains a text area and a scoller when the text area gets too large
+     * The results of each game are posted here.
+     */
     private void createMiddlePanel()
     {
         midPnl = new JPanel();
@@ -58,6 +81,13 @@ public class RockPaperScissorsFrame extends JFrame{
         scroller = new JScrollPane(displayResults);
         midPnl.add(scroller);
     }
+
+    /**
+     * Creates the bottom panel for the frame
+     * Contains 4 buttons, rock, paper scissors, and quit
+     * When a rock, paper or scissors button is pressed, the computer generates a random choice
+     * The player choice is compared to the computer's choice to determine the winner
+     */
     private void createBottomPanel()
     {
         botPnl = new JPanel();
@@ -88,6 +118,13 @@ public class RockPaperScissorsFrame extends JFrame{
         botPnl.add(scissorsButton);
         botPnl.add(quitButton);
     }
+
+    /**
+     *
+     * @param Choice A number 1 through 3 that represents what the user chose.
+     * @return a String that says who won the game
+     * Compares the player choice to a random computer choice to determine winner
+     */
 
     private String gameRun(int Choice) {
         Random rand = new Random();
