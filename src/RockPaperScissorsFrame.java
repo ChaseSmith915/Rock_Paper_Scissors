@@ -20,6 +20,8 @@ public class RockPaperScissorsFrame extends JFrame{
     JPanel midPnl;
     JPanel botPnl;
 
+    JPanel scoreTrack;
+
     JLabel titleLbl;
     JTextArea displayResults;
     JScrollPane scroller;
@@ -31,6 +33,17 @@ public class RockPaperScissorsFrame extends JFrame{
     ImageIcon rockImage;
     JButton scissorsButton;
     ImageIcon scissorsImage;
+
+    JLabel cpuWinsLabel;
+    JLabel playerWinsLabel;
+    JLabel tieLabel;
+    JTextArea cpuWins;
+    JTextArea playerWins;
+    JTextArea ties;
+
+    int cpuWinNumber = 0;
+    int playerWinNumber = 0;
+    int tieNumber = 0;
 
     private String results;
 
@@ -63,10 +76,29 @@ public class RockPaperScissorsFrame extends JFrame{
     private void createTopPanel()
     {
         topPnl = new JPanel();
+        scoreTrack = new JPanel();
+        scoreTrack.setLayout(new GridLayout(3,4));
+        topPnl.setLayout(new BorderLayout());
         titleLbl = new JLabel("Rock Paper Scissors",JLabel.CENTER);
         titleLbl.setFont(new Font("SansSerif", Font.BOLD, 38));
 
-        topPnl.add(titleLbl);
+        topPnl.add(titleLbl, BorderLayout.NORTH);
+
+
+        cpuWins = new JTextArea(1,1);
+        cpuWinsLabel = new JLabel("computer wins", JLabel.CENTER);
+        playerWins = new JTextArea(1,1);
+        playerWinsLabel = new JLabel("player wins", JLabel.CENTER);
+        tieLabel = new JLabel("ties", JLabel.CENTER);
+        ties = new JTextArea(1,1);
+
+        scoreTrack.add(cpuWinsLabel);
+        scoreTrack.add(cpuWins);
+        scoreTrack.add(playerWinsLabel);
+        scoreTrack.add(playerWins);
+        scoreTrack.add(tieLabel);
+        scoreTrack.add(ties);
+        topPnl.add(scoreTrack);
     }
 
     /**
@@ -77,8 +109,10 @@ public class RockPaperScissorsFrame extends JFrame{
     private void createMiddlePanel()
     {
         midPnl = new JPanel();
-        displayResults = new JTextArea(20,60);
+        displayResults = new JTextArea(10,60);
         scroller = new JScrollPane(displayResults);
+
+
         midPnl.add(scroller);
     }
 
@@ -119,6 +153,7 @@ public class RockPaperScissorsFrame extends JFrame{
         botPnl.add(quitButton);
     }
 
+
     /**
      *
      * @param Choice A number 1 through 3 that represents what the user chose.
@@ -133,27 +168,41 @@ public class RockPaperScissorsFrame extends JFrame{
         String results = "";
         if (computerChoice == Choice) {
             results = "It's a tie!";
+            tieNumber++;
+            ties.setText(tieNumber + "");
         } else {
             switch (Choice) {
                 case 1 -> {
                     if (computerChoice == 2) {
                         results = "Paper beats rock (Computer wins)";
+                        cpuWinNumber++;
+                        cpuWins.setText(cpuWinNumber + "");
                     } else {
                         results = "Rock beats scissors (Player wins)";
+                        playerWinNumber++;
+                        playerWins.setText(playerWinNumber + "");
                     }
                 }
                 case 2 -> {
                     if (computerChoice == 1) {
                         results = "Paper beats rock (Player Wins)";
+                        playerWinNumber++;
+                        playerWins.setText(playerWinNumber + "");
                     } else {
                         results = "Scissors beats paper (Computer Wins)";
+                        cpuWinNumber++;
+                        cpuWins.setText(cpuWinNumber + "");
                     }
                 }
                 case 3 -> {
                     if (computerChoice == 1) {
                         results = "Rock beats scissors (Computer Wins)";
+                        cpuWinNumber++;
+                        cpuWins.setText(cpuWinNumber + "");
                     } else {
                         results = "Scissors beats Rock (Player Wins)";
+                        playerWinNumber++;
+                        playerWins.setText(playerWinNumber + "");
                     }
                 }
             }
