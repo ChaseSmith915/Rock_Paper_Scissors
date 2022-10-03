@@ -41,9 +41,15 @@ public class RockPaperScissorsFrame extends JFrame{
     JTextArea playerWins;
     JTextArea ties;
 
+    JLabel totalLabel;
+    JTextArea total;
+
+
     int cpuWinNumber = 0;
     int playerWinNumber = 0;
     int tieNumber = 0;
+
+    int totalNumber = 0;
 
     private String results;
 
@@ -77,7 +83,7 @@ public class RockPaperScissorsFrame extends JFrame{
     {
         topPnl = new JPanel();
         scoreTrack = new JPanel();
-        scoreTrack.setLayout(new GridLayout(3,4));
+        scoreTrack.setLayout(new GridLayout(4,4));
         topPnl.setLayout(new BorderLayout());
         titleLbl = new JLabel("Rock Paper Scissors",JLabel.CENTER);
         titleLbl.setFont(new Font("SansSerif", Font.BOLD, 38));
@@ -91,6 +97,9 @@ public class RockPaperScissorsFrame extends JFrame{
         playerWinsLabel = new JLabel("player wins", JLabel.CENTER);
         tieLabel = new JLabel("ties", JLabel.CENTER);
         ties = new JTextArea(1,1);
+        totalLabel = new JLabel("total", JLabel.CENTER);
+        total = new JTextArea(1,1);
+
 
         scoreTrack.add(cpuWinsLabel);
         scoreTrack.add(cpuWins);
@@ -98,6 +107,8 @@ public class RockPaperScissorsFrame extends JFrame{
         scoreTrack.add(playerWins);
         scoreTrack.add(tieLabel);
         scoreTrack.add(ties);
+        scoreTrack.add(totalLabel);
+        scoreTrack.add(total);
         topPnl.add(scoreTrack);
     }
 
@@ -207,7 +218,10 @@ public class RockPaperScissorsFrame extends JFrame{
                 }
             }
         }
+        totalNumber = cpuWinNumber + playerWinNumber + tieNumber;
+        total.setText(totalNumber + "");
         return results;
+
     }
     }
 
